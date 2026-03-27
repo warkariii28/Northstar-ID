@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title%} {{ title }} {% endblock %}
+{% block content%}
+<div class="container py-4 py-lg-5">
+    <div class="row align-items-stretch g-4">
+        <div class="col-lg-5">
+            <div class="auth-side h-100 p-4 p-lg-5 d-flex flex-column justify-content-between">
+                <div>
+                    <span class="brand-chip auth-badge mb-4">
+                        <span class="brand-dot"></span>
+                        Northstar ID
+                    </span>
+                    <h1 class="display-6 fw-bold mb-3">{{ text }}</h1>
+                    <p class="text-white-50 mb-4">
+                        {% if auth_mode == 'register' %}
+                        Start with a clean Flask authentication base you can keep building on.
+                        {% else %}
+                        Pick up where you left off and continue testing your authentication flow.
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div>
+                    <div class="mini-stat mb-3">
+                        <h2 class="h6">Built with Flask, SQLAlchemy, WTForms, and Bcrypt</h2>
+                        <p class="mb-0 text-white-50">A compact stack that is easy to understand, customize, and showcase.</p>
+                    </div>
+                    <div class="mini-stat">
+                        <h2 class="h6">Made to be extended</h2>
+                        <p class="mb-0 text-white-50">Add profile pages, role-based access, password reset, or email verification next.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="glass-panel h-100 p-3 p-lg-4">
+            <form action="{{ request.path }}" method="POST" class="card-body">
+                {{ form.csrf_token }}
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <div class="mb-4">
+                    <p class="feature-kicker mb-2">{% if auth_mode == 'register' %}Create profile{% else %}Member access{% endif %}</p>
+                    <h2 class="mb-2">{{ text }}</h2>
+                    <p class="text-muted mb-0">
+                        {% if auth_mode == 'register' %}
+                        Set up your account to explore the customized version of this Flask starter.
+                        {% else %}
+                        Sign in with the account you created to verify the full authentication cycle.
+                        {% endif %}
+                    </p>
+                </div>
+                
+                {% if request.path == '/register/' %}
+                <div class="form-group mb-3">
+                    {{ form.username(class_="form-control",placeholder="Username")}}
+                </div>
+                {% for error in form.username.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor%}
+                {% endif%}
+                <div class="form-group mb-3">
+                    {{ form.email(class_="form-control",placeholder="Email")}}
+                </div>
+                {% for error in form.email.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor%}
+                <div class="form-group mb-3">
+                    {{ form.pwd(class_="form-control",placeholder="Password")}}
+                </div>
+                {% for error in form.pwd.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> {% endfor%}
+                {% if request.path == '/register/' %}
+                <div class="form-group mb-3">
+                    {{ form.cpwd(class_="form-control",placeholder="Confirm Password")}}
+                </div>
+                {% for error in form.cpwd.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ error }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div> {% endfor%}
+                {% endif %}
+                <div class="text-center">
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-block btn-accent mb-3"> {{ btn_action }} </button>
+                    </div>
+
+                    <p>
+                        {% if request.path != '/register/' %}
+                        New here?
+                        <a href="{{url_for('register')}}">Create account</a>
+                        {% else %}
+                        Already have an account?
+                        <a href="{{url_for('login')}}">Login</a>
+                        {% endif %}
+                    </p>
+                    
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
