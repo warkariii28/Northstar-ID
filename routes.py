@@ -3,10 +3,10 @@ from flask import (
     redirect,
     flash,
     url_for,
-    session
+    session,
+    current_app,
 )
 
-from datetime import timedelta
 from sqlalchemy.exc import (
     IntegrityError,
     DataError,
@@ -23,14 +23,14 @@ from forms import login_form,register_form
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 app = create_app()
 
 @app.before_request
 def session_handler():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=1)
+    current_app.permanent_session_lifetime = current_app.config["PERMANENT_SESSION_LIFETIME"]
 
 @app.route("/", methods=("GET", "POST"), strict_slashes=False)
 def index():
@@ -49,8 +49,8 @@ def login():
                 return redirect(url_for('index'))
             else:
                 flash("Invalid credentials!", "danger")
-        except Exception as e:
-            flash("An error occurred!", "danger")
+        except Exception:
+            flash("Unable to sign you in right now. Please try again.", "danger")
 
     return render_template("auth.html",
         form=form,
@@ -75,12 +75,12 @@ def register():
             newuser = User(
                 username=username,
                 email=email,
-                pwd=bcrypt.generate_password_hash(pwd),
+                pwd=bcrypt.generate_password_hash(pwd).decode("utf-8"),
             )
     
             db.session.add(newuser)
             db.session.commit()
-            flash(f"Account Succesfully created", "success")
+            flash("Account successfully created.", "success")
             return redirect(url_for("login"))
 
         except InvalidRequestError:
@@ -113,6 +113,7 @@ def register():
 @login_required
 def logout():
     logout_user()
+    flash("You have been logged out.", "info")
     return redirect(url_for('login'))
 
 

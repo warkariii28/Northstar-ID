@@ -1,75 +1,97 @@
 {% extends "base.html" %}
 {% block title%} {{ title }} {% endblock %}
 {% block content%}
-<div class="container py-4 py-lg-5">
-    <div class="glass-panel p-4 p-lg-5">
-        <div class="row align-items-center g-4 g-lg-5">
-            <div class="col-lg-7">
-                <span class="brand-chip mb-4">
-                    <span class="brand-dot"></span>
-                    Northstar ID
-                </span>
-                <h1 class="headline">Secure sign-in flows with a cleaner personal touch.</h1>
-                <p class="subtext mt-4 mb-4">
-                    This version turns a basic Flask authentication demo into a more polished starter project with a custom landing page, refreshed onboarding copy, and a distinct brand identity.
+<section class="py-4 py-lg-5">
+    <div class="row hero-grid g-4 g-lg-5">
+        <div class="col-lg-7">
+            <div class="hero-copy">
+                <span class="eyebrow">Authentication Starter</span>
+                <h1 class="headline">A sharper Flask auth experience built to be extended.</h1>
+                <p class="lead mt-4">
+                    Northstar ID is a polished authentication starter with registration, login, sessions, hashed passwords, and a cleaner visual identity. It is meant to be simple enough to learn from and strong enough to grow into a bigger project.
                 </p>
 
                 {% if current_user.is_authenticated %}
-                <div class="success-panel p-4 mb-4">
-                    <h2 class="h4 mb-2">Welcome back, {{ current_user.username }}.</h2>
-                    <p class="mb-0 text-muted">Your session is active and the authentication flow is working correctly.</p>
+                <div class="status-panel mt-4">
+                    <h2 class="h4 mb-2">Welcome back, {{ current_user.username }}</h2>
+                    <p class="mb-0">You are signed in, your session is active, and the full auth flow is working correctly.</p>
                 </div>
-                <a class="btn btn-accent btn-lg me-2" href="{{ url_for('logout') }}">Log out</a>
+                <div class="cta-row">
+                    <a class="btn btn-accent" href="{{ url_for('logout') }}">Log out</a>
+                </div>
                 {% else %}
-                <div class="d-flex flex-column flex-sm-row gap-3">
-                    <a class="btn btn-accent btn-lg" href="{{ url_for('register') }}">Create account</a>
-                    <a class="btn btn-outline-ink btn-lg" href="{{ url_for('login') }}">Sign in</a>
+                <div class="cta-row">
+                    <a class="btn btn-accent" href="{{ url_for('register') }}">Start with an account</a>
+                    <a class="btn btn-outline-ink" href="{{ url_for('login') }}">Sign in</a>
                 </div>
                 {% endif %}
-            </div>
 
-            <div class="col-lg-5">
-                <div class="auth-side p-4 p-lg-5">
-                    <p class="brand-chip auth-badge mb-4">What makes it yours</p>
-                    <div class="mini-stat mb-3">
-                        <h3 class="h5">Branded experience</h3>
-                        <p class="mb-0 text-white-50">Custom product naming, tone, and page layout instead of stock sample content.</p>
+                <div class="trust-row">
+                    <div class="trust-card">
+                        <strong>Flask</strong>
+                        Lightweight server-side app structure
                     </div>
-                    <div class="mini-stat mb-3">
-                        <h3 class="h5">Practical auth starter</h3>
-                        <p class="mb-0 text-white-50">Registration, login, hashed passwords, sessions, and database-backed users.</p>
+                    <div class="trust-card">
+                        <strong>WTForms</strong>
+                        Reliable input validation and CSRF protection
                     </div>
-                    <div class="mini-stat">
-                        <h3 class="h5">Portfolio-ready base</h3>
-                        <p class="mb-0 text-white-50">A cleaner starting point for adding profiles, dashboards, email verification, or password reset flows.</p>
+                    <div class="trust-card">
+                        <strong>SQLite</strong>
+                        Simple local database to learn and iterate fast
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-4 mt-lg-5 g-3">
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <p class="feature-kicker mb-2">Secure</p>
-                    <h2 class="h5">Password hashing built in</h2>
-                    <p class="mb-0 text-muted">User credentials are stored using `Flask-Bcrypt`, keeping the authentication layer production-minded.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <p class="feature-kicker mb-2">Validated</p>
-                    <h2 class="h5">WTForms handles input checks</h2>
-                    <p class="mb-0 text-muted">Email validation, password matching, and duplicate-account guards help keep bad input out.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <p class="feature-kicker mb-2">Extensible</p>
-                    <h2 class="h5">Easy to evolve into a full app</h2>
-                    <p class="mb-0 text-muted">The structure is simple enough to understand quickly and flexible enough to grow from here.</p>
+        <div class="col-lg-5">
+            <div class="hero-stack">
+                <div class="hero-spotlight">
+                    <p class="feature-kicker text-white-50 mb-2">Why it feels different</p>
+                    <h2 class="h3">More than a plain tutorial clone</h2>
+                    <p class="text-white-50 mb-4">
+                        The app now has a stronger brand direction, a refined UI system, and a cleaner onboarding flow that makes it easier to present as your own project.
+                    </p>
+                    <div class="spotlight-grid">
+                        <div class="metric-card">
+                            <strong>Register</strong>
+                            Users create accounts with validated username, email, and password fields.
+                        </div>
+                        <div class="metric-card">
+                            <strong>Authenticate</strong>
+                            Passwords are hashed and verified through Bcrypt during login.
+                        </div>
+                        <div class="metric-card">
+                            <strong>Persist</strong>
+                            Flask-Login keeps the session active and user state available across requests.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="feature-strip row g-3">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <p class="feature-kicker mb-2">Secure foundation</p>
+                <h2 class="h5">Passwords are never stored in plain text</h2>
+                <p class="mb-0 text-muted">`Flask-Bcrypt` generates the password hash on registration and checks it on login.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <p class="feature-kicker mb-2">Clean validation</p>
+                <h2 class="h5">The form layer blocks common bad input</h2>
+                <p class="mb-0 text-muted">Email format, password length, confirmation matching, and duplicate users are handled before bad data lands in the database.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <p class="feature-kicker mb-2">Easy next steps</p>
+                <h2 class="h5">You can grow this into a real product</h2>
+                <p class="mb-0 text-muted">Add profile pages, email verification, password reset, or role-based access without replacing the project structure.</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

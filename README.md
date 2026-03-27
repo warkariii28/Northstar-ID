@@ -1,87 +1,149 @@
 # Northstar ID
 
-Northstar ID is a customized Flask authentication starter that I reshaped from a basic login/signup example into a cleaner, more portfolio-friendly project.
+Northstar ID is a beginner-friendly Flask authentication project.  
+It shows how to build the basics of a user system: register, log in, log out, and store user data in a database.
 
-## What changed
+## What this project teaches
 
-- Added a distinct product identity instead of leaving the app as a generic Flask auth demo
-- Redesigned the landing page with a stronger visual style and clearer messaging
-- Refreshed the login and registration screens so the project feels like a real app starter
-- Kept the original authentication foundation simple and extendable
+- How a Flask app is structured
+- How user registration works
+- How login and logout work
+- How passwords are hashed before storage
+- How forms are validated
+- How data is saved in SQLite using SQLAlchemy
 
-## Current features
+## Features
 
-- User registration
-- User login
+- Create a new account
+- Log in with an existing account
+- Log out securely
 - Password hashing with `Flask-Bcrypt`
-- Session handling with `Flask-Login`
-- SQLite database with SQLAlchemy
-- WTForms validation
+- Form validation with `Flask-WTF` and `WTForms`
+- User data stored in SQLite
 
-## Project stack
+## Tech used
 
+- Python
 - Flask
 - Flask-Login
 - Flask-Bcrypt
-- Flask-Migrate
 - Flask-WTF
+- Flask-Migrate
 - SQLAlchemy
 - SQLite
 
-## Run locally
+## Project structure
 
-1. Create a virtual environment
+```text
+Northstar-ID/
+|-- app.py
+|-- routes.py
+|-- models.py
+|-- forms.py
+|-- manage.py
+|-- requirements.txt
+|-- templates/
+|-- static/
+|-- migrations/
+```
+
+## File explanation
+
+- `app.py` creates and configures the Flask app
+- `routes.py` contains page routes like login, register, home, and logout
+- `models.py` defines the `User` database table
+- `forms.py` contains the login and registration forms
+- `manage.py` helps create and update the database
+- `templates/` contains the HTML pages
+- `static/` stores images and static assets
+
+## How to run this project from scratch
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/warkariii28/User-Authentication.git
+cd User-Authentication
+```
+
+### 2. Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-2. Activate it
+### 3. Activate the virtual environment
+
+#### Windows PowerShell
 
 ```powershell
 venv\Scripts\activate
 ```
 
-3. Install dependencies
+#### macOS/Linux
+
+```bash
+source venv/bin/activate
+```
+
+### 4. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Create the database
+### 5. Create the database
 
 ```bash
 python manage.py
 ```
 
-5. Start the app
+### 6. Run the Flask app
+
+#### Windows PowerShell
 
 ```powershell
 $env:FLASK_APP="routes"
 flask run
 ```
 
-6. Open your browser
+#### macOS/Linux
+
+```bash
+export FLASK_APP=routes
+flask run
+```
+
+### 7. Open in browser
 
 ```text
 http://127.0.0.1:5000/
 ```
 
-## Main routes
+## App routes
 
-- `/` for the landing page
-- `/login/` for sign in
-- `/register/` for account creation
-- `/logout` to end the session
+- `/` home page
+- `/login/` login page
+- `/register/` register page
+- `/logout` logout route
 
-## Next ideas
+## How authentication works here
 
-- Add profile pages
+1. A user registers with username, email, and password.
+2. The password is hashed before saving to the database.
+3. The user logs in with email and password.
+4. Flask-Login keeps the user session active.
+5. The user can log out to end the session.
+
+## Beginner ideas to improve this project
+
+- Add a profile page
 - Add password reset
 - Add email verification
-- Add role-based access
-- Move styling into a dedicated static CSS file
+- Add user roles like admin and normal user
+- Move CSS into a separate file
+- Add better flash messages and dashboard pages
 
-## Notes
+## Author
 
-This repo is now positioned as a customized auth starter, so if you publish it to GitHub, rename the repository and update the author details to match your own profile.
+Built and customized by Athar as a Flask authentication learning project.
