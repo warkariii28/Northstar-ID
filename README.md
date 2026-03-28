@@ -144,6 +144,16 @@ http://127.0.0.1:5000/
 - Move CSS into a separate file
 - Add better flash messages and dashboard pages
 
+- ## The Look
+  Home
+- ![Home](docs/home.png)
+
+  Register
+- ![Register](docs/register.png)
+
+  Register
+- ![Login](docs/login.png)
+- 
 ## Author
 
-Built and customized by Athar as a Flask authentication learning project.
+Built and customized by Atharv as a Flask authentication learning project.
